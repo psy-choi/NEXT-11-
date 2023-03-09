@@ -1,0 +1,40 @@
+* {
+    margin-top: 50px;
+    font-family: 'Gamja Flower', cursive;
+    font-size: 40px;
+    text-align: center;
+    color:aliceblue;
+    background-color: rgb(97, 152, 255);
+}
+
+div {
+    text-align: center;
+}
+
+a {
+    text-decoration-line: none;
+}
+td {
+    table-layout: fixed;
+}
+
+table {
+    table-layout: fixed;
+    border: none;
+    width: 500px;
+    height: 500px;
+    margin: auto;
+}
+
+
+.blue {
+    background-color: rgb(54, 108, 224);
+    border:none;
+    border-radius: 5%;
+}
+
+.skyblue {
+    background-color: rgb(71, 169, 254);
+    border: none;
+    border-radius: 5%;
+}

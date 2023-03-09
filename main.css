@@ -1,0 +1,17 @@
+* {
+    margin-top: 50px;
+    font-family: 'Gamja Flower', cursive;
+    text-align: center;
+    color:aliceblue;
+    background-color: rgb(97, 152, 255);
+}
+
+.button {
+    background-color: aliceblue;
+    border-radius: 5%;
+    width: 100px;
+    height: 30px;
+    border: 2px;
+    color: rgb(97, 152, 255);
+}
+
