@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'style.css' %}" />
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width,	initial-scale=1.0" />
+    <title>New Article</title>
+  </head>
+  <body>
+    <h2>글 쓰기 페이지</h2>
+    <form action="" method="post">
+      {% csrf_token %}
+      <div>
+        <div>글 제목</div>
+        <input
+          type="text"
+          name="title"
+          id="title"
+          placeholder="제목을 입력해주세요."
+        />
+      </div>
+
+      <div>
+        <div>글 카테고리</div>
+
+        <select name="category" id="category">
+          <option value="">카테고리를 선택하세요</option>
+          {% for category in categories %}
+          <option value="{{ category.id }}">{{ category.name }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div>
+        <div>글 내용</div>
+        <textarea
+          name="content"
+          id="content"
+          cols="30"
+          rows="10"
+          placeholder="내용을 입력해주세요."
+        ></textarea>
+      </div>
+      <button type="submit">작성하기</button>
+    </form>
+  </body>
+</html>
