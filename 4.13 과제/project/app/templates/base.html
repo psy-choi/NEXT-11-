@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {% load static %}
+    <meta charset="UTF-8" />
+    <link rel="shortcut icon" href="{% static 'favicon.png' %}" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Ceviche+One&family=Inter:wght@900&family=Jua&family=Koulen&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" type="text/css" href="{% static 'home.css' %}" />
+    {% block css %} {% endblock css %}
+    <title>Project</title>
+  </head>
+
+  <body>
+    <div class="title">{% block title %} {% endblock title %}</div>
+    <div class="container">{% block content %} {% endblock content %}</div>
+  </body>
+  <footer>
+    이 사이트는 이제 제껌니다 하하하 <br />
+    그리고 이 사이트는 대댓글을 달면 삭제할 수 없어요 대박이죠? <br />
+    사실 구라예요 :)
+
+    <br />이 사이트에 대해서 설명하자면 좀 긴데요 화가나면 소리를 지르는
+    게시판이예!ㅛ 하하하하하하하하
+  </footer>
+</html>
