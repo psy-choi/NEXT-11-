@@ -1,0 +1,29 @@
+{% extends 'base.html' %} {% block css%} {% endblock %} {% block title %}
+Detail! {% endblock title %} {% block content %}
+<div class="alert alert-dismissible alert-warning">
+    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    <h4 class="alert-heading">{{post.title}}</h4>
+    <p class="mb-0">{{post.content}}</p>
+  </div>
+
+
+{% if user.is_authenticated and user.pk == post.author.pk %}
+<button class="btn" value="Update"><a href="{% url 'edit' post.pk %}">Update</a></button>
+<button class="btn" value="Delete"><a href="{% url 'delete' post.pk %}">Delete</a></button>{% endif %}
+
+
+
+
+<form action="" method="POST">
+  {% csrf_token %}
+  <input type="text" name="content" />
+  <button type="submit">댓글 작성</button>
+</form>
+{% for comment in post.comments.all %}
+  <div>
+<div class="alert alert-dismissible alert-primary">
+    <strong>{{comment.content}}</strong></p>
+  {% if user.pk == comment.author.pk and user.is_authenticated %}
+  <a href="{% url 'delete_comment' post.pk comment.pk %}">삭제</a>
+  {% endif %}</div>
+{% endfor %} {% endblock content %}

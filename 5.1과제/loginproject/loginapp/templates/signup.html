@@ -1,0 +1,29 @@
+{% extends 'base.html' %} {% block css%} {% endblock %} {% block title %} Sign
+up! {% endblock title %} {% block content %} {% if error %}
+<p>{{error}}</p>
+{% endif %}
+<form method="POST">
+  {% csrf_token %}
+  <div class="form-group">
+    <label class="form-label">ID</label>
+    <input
+      class="form-control"
+      id="disabledInput"
+      type="text"
+      name="username"
+      placeholder="아이디"
+    />
+  </div>
+  <div class="form-group">
+    <label class="form-label mt-4">password</label>
+    <input
+      class="form-control"
+      id="password"
+      type="password"
+      name="password"
+      placeholder="비밀번호"
+    />
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+{% endblock content %}
