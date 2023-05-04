@@ -1,0 +1,31 @@
+{% extends 'base.html' %} {% block css%} {% endblock %} {% block title %} Login
+{% endblock title %} {% block content %}
+
+<form method="POST">
+    {% csrf_token %}
+  <fieldset>
+    <legend>Post your Story!</legend>
+    <div class="form-group">
+      <label class="form-label mt-4"
+        >Theme</label
+      >
+      <input
+        type="text"
+        class="form-control"
+        id="exampleInputEmail1"
+        name="title"
+        placeholder="제목"
+      />
+    </div>
+    <div class="form-group">
+      <label class="form-label mt-4"
+        >Nature</label
+      >
+      <textarea class="form-control" id="exampleTextarea" name="content" rows="3"></textarea>
+    </div>
+    
+    <button type="submit" class="btn btn-primary">Submit</button>
+
+</form>
+
+{% endblock content %}
