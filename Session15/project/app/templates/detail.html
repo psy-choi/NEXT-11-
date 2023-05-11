@@ -1,0 +1,120 @@
+{% extends 'base.html' %} {% block content %}
+<div>
+  <div>
+    <div class="post_title">{{ post.title }}</div>
+    <div class="post_content">{{ post.content }}</div>
+  </div>
+  <a href="{% url 'home' %}">홈으로</a>
+
+  {% if user.is_authenticated and post.author.pk == user.pk %}
+  <a href="{% url 'edit' post.pk %}">수정하기</a>
+  <a href="{% url 'delete' post.pk %}">삭제하기</a>
+  <span class="like-count">좋아요 : {{ post.likes.count }}개 </span>
+
+  {% endif %}
+  <div class="comment-box">
+    {% for comment in post.comments.all %}
+    <div>
+      <li>{{ comment.content }}</li>
+      {% if user.is_authenticated and comment.author.pk == user.pk %}
+      <a href="{% url 'delete_comment' post.pk comment.pk %}">댓글삭제</a>
+    </div>
+    {% endif %} {% endfor %}
+  </div>
+  {% if user.is_authenticated %}
+  <input type="text" class="comment-input" placeholder="댓글을 입력하세요" />
+  <button class="comment-button">댓글 쓰기</button>
+  <!-- <form method="POST">
+    {% csrf_token %}
+    <input type="text" name="content" placeholder="댓글을 입력하세요" />
+    <button type="submit">댓글 쓰기</button>
+  </form> -->
+  <button class="like-button">좋아요</button>
+  {% endif %}
+</div>
+
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script>
+  const commentButton = document.querySelector(".comment-button");
+  const commentBox = document.querySelector(".comment-box");
+  const commentInput = document.querySelector(".comment-input");
+  const likeButton = document.querySelector(".like-button");
+  const likeCount = document.querySelector(".like-count");
+
+  const handleComment = () => {
+    fetch("/detail/" + "{{ post.pk }}", {
+      method: "POST",
+      body: JSON.stringify({
+        post_pk: "{{ post.pk }}",
+        content: commentInput.value,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        const div = document.createElement("div");
+        const li = document.createElement("li");
+        li.innerHTML = data.content;
+        div.appendChild(li);
+
+        const a = document.createElement("a");
+        a.innerHTML = "댓글삭제";
+        a.id = data.comment_pk;
+        a.classList.add("comment-delete");
+        a.addEventListener("click", handleCommentDel);
+        div.appendChild(a);
+
+        commentBox.appendChild(div);
+        commentInput.value = "";
+      });
+  };
+
+  const handleLike = () => {
+    axios
+      .post(
+        "/like",
+        {
+          post_pk: "{{ post.pk }}",
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      )
+      .then((response) => response.data)
+      .then((data) => {
+        likeCount.innerHTML = `좋아요 : ${data.like_count}개`;
+      });
+  };
+
+  const handleCommentDel = async (e) => {
+    const id = e.target.id;
+    try {
+      const res = await axios.post(
+        "/delete_comment/" + "{{post.pk}}/" + `${id}`
+      );
+
+      console.log(res);
+      const { comment_pk } = res.data;
+
+      const commentBoxDeleted = e.target.parentNode;
+      commentBoxDeleted.remove();
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const commentDelete = document.querySelectorAll(".comment-delete");
+  for (let i = 0; i < commentDelete.length; i++) {
+    const a = commentDelete[i];
+    a.addEventListener("click", handleCommentDel);
+  }
+
+  commentButton.addEventListener("click", handleComment);
+  likeButton.addEventListener("click", handleLike);
+</script>
+
+{% endblock content %}
